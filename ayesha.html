@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Untuk Ayesha</title>
+  <style>
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #007BFF;
+      background-size: cover;
+      background-position: center;
+      color: white;
+      text-shadow: 1px 1px 3px black;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      overflow: hidden;
+      transition: background-image 1s ease-in-out;
+    }
+
+    .box {
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 30px;
+      border-radius: 20px;
+      text-align: center;
+      max-width: 90%;
+      width: 400px;
+      animation: fadeInUp 1s ease;
+    }
+
+    button {
+      background-color: #ff66b2;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin: 10px 5px;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    input {
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      margin-top: 10px;
+    }
+
+    img {
+      width: 100%;
+      max-width: 300px;
+      margin: 10px auto;
+      display: block;
+      border: 2px solid white;
+      border-radius: 10px;
+    }
+
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background-color: #ff66b2;
+      top: 0;
+      animation: fall 3s linear infinite;
+      z-index: 9999;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-10px); }
+      100% { transform: translateY(100vh); }
+    }
+  </style>
+</head>
+<body>
+  <audio id="audio" loop>
+    <source src="make-a-wish.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <div class="box" id="container">
+    <h1>Halloo Ayesha!!</h1>
+    <p>Apakah kamu Ayesha?</p>
+    <button onclick="pilih('iya')">Iya</button>
+    <button onclick="pilih('tidak')">Tidak</button>
+  </div>
+
+  <script>
+    const container = document.getElementById("container");
+    const audio = document.getElementById("audio");
+
+    function pilih(jawaban) {
+      if (jawaban === "iya") {
+        container.innerHTML = `
+          <p>Silakan play music di bawah ini dulu 🎵</p>
+          <button onclick="playMusicAndNext()">Play Music & Mulai</button>
+        `;
+      } else {
+        container.innerHTML = `
+          <h1>Yah :(</h1>
+          <p>Maaf banget, ini cuma khusus only one buat Ayesha huhuhu 🥺</p>
+          <button onclick="kembaliKeAwal()">Kembali</button>
+        `;
+      }
+    }
+
+    function playMusicAndNext() {
+      audio.play();
+      pertanyaan1();
+    }
+
+    function pertanyaan1() {
+      container.innerHTML = `
+        <h1>Pertanyaan 1</h1>
+        <p>Siapa Nama Panjangmu?</p>
+        <input type="text" id="jawaban1" placeholder="Tulis di sini..." />
+        <br><button onclick="cekJawaban1()">Lanjut</button>
+      `;
+    }
+
+    function cekJawaban1() {
+      const jawaban = document.getElementById("jawaban1").value.trim().toLowerCase();
+      if (jawaban === "ayesha arifadianti rajwa") {
+        pertanyaan2();
+      } else {
+        container.innerHTML = `
+          <h1>Yah kamu salah 😢</h1>
+          <p>Mau coba lagi?</p>
+          <button onclick="pertanyaan1()">Coba Lagi</button>
+        `;
+      }
+    }
+
+    function pertanyaan2() {
+      container.innerHTML = `
+        <h1>Pertanyaan 2</h1>
+        <p>Siapa aku?</p>
+        <input type="text" id="jawaban2" placeholder="Tulis di sini..." />
+        <br><button onclick="cekJawaban2()">Lanjut</button>
+      `;
+    }
+
+    function cekJawaban2() {
+      const jawaban = document.getElementById("jawaban2").value.trim().toLowerCase();
+      if (jawaban === "ibu paus") {
+        tampilkanSoalFisika();
+      } else {
+        container.innerHTML = `
+          <h1>Yah kamu salah 😢</h1>
+          <p>Mau coba lagi?</p>
+          <button onclick="pertanyaan2()">Coba Lagi</button>
+        `;
+      }
+    }
+
+    function tampilkanSoalFisika() {
+      container.innerHTML = `
+        <h1>Soal Fisika</h1>
+        <p>Diameter luar sebuah pipa diukur menggunakan jangka sorong seperti gambar di bawah ini.</p>
+        <img src="3bbad4ed-4187-4e4f-8ffd-1a47553a4494.png" alt="soal fisika" />
+        <p>Berapakah diameter luar pipa tersebut?</p>
+        <button onclick="cekJawabanFisika('a')">a. 7.21 cm</button><br>
+        <button onclick="cekJawabanFisika('b')">b. 7.22 cm</button><br>
+        <button onclick="cekJawabanFisika('c')">c. 7.23 cm</button><br>
+        <button onclick="cekJawabanFisika('d')">d. 7.24 cm</button><br>
+        <button onclick="cekJawabanFisika('e')">e. 7.25 cm</button><br>
+      `;
+    }
+
+    function cekJawabanFisika(pilihan) {
+      if (pilihan === "b") {
+        tampilkanPesanKejutan();
+      } else {
+        container.innerHTML = `
+          <h1>Yah salah nih 😅</h1>
+          <p>Coba perhatikan ulang jangka sorongnya ya!</p>
+          <button onclick="tampilkanSoalFisika()">Coba Lagi</button>
+        `;
+      }
+    }
+
+    function tampilkanPesanKejutan() {
+      document.body.style.backgroundImage = "url('Ayesha.jpg')";
+      container.innerHTML = `
+        <h1 class="surprise">🎉 Happy Birthday Aye kuu! 🎉</h1>
+        <p class="surprise">Semoga hari-hari kamu selalu penuh tawa, semangat, dan kebahagiaan.<br>
+        Kamu orang yang spesial, semoga apa yang kamu inginkan selalu tercapai yaa dan hari ini dunia jadi lebih cerah karena ada kamu! 💖</p>
+      `;
+      munculinKonfeti();
+    }
+
+    function kembaliKeAwal() {
+      document.body.style.backgroundImage = "none";
+      container.innerHTML = `
+        <h1>Halloo Ayesha!!</h1>
+        <p>Apakah kamu Ayesha?</p>
+        <button onclick="pilih('iya')">Iya</button>
+        <button onclick="pilih('tidak')">Tidak</button>
+      `;
+    }
+
+    function munculinKonfeti() {
+      for (let i = 0; i < 100; i++) {
+        let konfeti = document.createElement("div");
+        konfeti.classList.add("confetti");
+        konfeti.style.left = Math.random() * window.innerWidth + "px";
+        konfeti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 70%)`;
+        konfeti.style.animationDuration = (Math.random() * 3 + 2) + "s";
+        document.body.appendChild(konfeti);
+        setTimeout(() => konfeti.remove(), 5000);
+      }
+    }
+  </script>
+</body>
+</html>
